@@ -43,12 +43,3 @@ class PredictDepth:
         
         d_img = fill_depth_colorization(rgb_img, d_img_pred)
         return d_img
-
-
-# from PIL import Image
-
-# p = PredictDepth(10, 1000, 2, "../model/nyu.h5")
-
-# out = p.predict(Image.open("image.png"))
-
-# print(out.shape)
