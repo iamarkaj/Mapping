@@ -16,16 +16,19 @@
 roscore
 ```
 
-### Video
+### DenseDepth
 
-A sample TUM dataset is provided in `$WORKSPACE/Mapping/tmp/Datatset`. <br> 
-So, this step can be skipped or goto `$WORKSPACE/Mapping/Video/data/` and save the new video as `video.mp4` <br>
-Goto `$WORKSPACE/Mapping/Video/src/node.py` and set the variable <br>
-[1] `CREATE_DATASET = True` for creating dataset or/and <br>
-[2] `PUBLISH = True` for publishing the video
+A sample TUM dataset is provided in `Datatset`. <br> 
+So, this step can be skipped or save the new video as `Datatset/video.mp4`
 
+##### Publish RGB and D images
 ```
-cd $WORKSPACE/Mapping && tmp/venv/bin/python3 Video/src/node.py
+cd $WORKSPACE/Mapping && DenseDepth/venv/bin/python3 DenseDepth/src/main.py
+```
+
+##### Create Datatset
+```
+cd $WORKSPACE/Mapping && DenseDepth/venv/bin/python3 DenseDepth/src/create_dataset.py
 ```
 
 ### ORB_SLAM2
@@ -33,7 +36,7 @@ cd $WORKSPACE/Mapping && tmp/venv/bin/python3 Video/src/node.py
 Goto `$WORKSPACE/Mapping/ORB_SLAM2/config/params.yaml` and set the camera paramaters 
 
 ```
-cd $WORKSPACE/Mapping && ./ORB_SLAM2/bin/RgbdNode ORB_SLAM2/Vocabulary/ORBvoc.bin ORB_SLAM2/config/params.yaml tmp/Dataset tmp/associate.txt
+cd $WORKSPACE/Mapping && ./ORB_SLAM2/bin/RgbdNode ORB_SLAM2/Vocabulary/ORBvoc.bin ORB_SLAM2/config/params.yaml Dataset Dataset/associate.txt
 ```
 
 ### References

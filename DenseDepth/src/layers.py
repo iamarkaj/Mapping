@@ -3,6 +3,7 @@ import keras.utils.conv_utils as conv_utils
 import tensorflow as tf
 import tensorflow.keras.backend as K
 
+
 def normalize_data_format(value):
     if value is None:
         value = K.image_data_format()

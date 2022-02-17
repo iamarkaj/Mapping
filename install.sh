@@ -8,7 +8,17 @@ cd $WORKSPACE && git clone https://github.com/iamarkaj/Mapping.git
 
 # INSTALL ORB_SLAM2
 # Prerequisite
-sudo apt-get install cmake build-essential libgtk2.0-dev libvtk5-dev libjpeg-dev libtiff5-dev libjasper-dev libopenexr-dev libtbb-dev libglew-dev python-numpy python-matplotlib libboost-all-dev libflann1.8 libflann-dev libqglviewer-dev-qt4
+sudo apt-get install cmake build-essential libgtk2.0-de libjpeg-dev libtiff5-dev libjasper-dev libopenexr-dev libtbb-dev libglew-dev python-numpy python-matplotlib libboost-all-dev libflann1.8 libflann-dev libqglviewer-dev-qt4
+
+source ~/.bashrc
+
+# Eigen3
+cd $WORKSPACE && git clone https://gitlab.com/libeigen/eigen.git
+git checkout 3.2
+cd eigen
+mkdir build && cd build
+cmake ..
+sudo make install
 
 source ~/.bashrc
 
@@ -19,16 +29,6 @@ cd Pangolin
 mkdir build && cd build
 cmake ..
 cmake --build .
-
-source ~/.bashrc
-
-# Eigen
-cd $WORKSPACE && git clone https://gitlab.com/libeigen/eigen.git
-git checkout 3.2
-cd eigen
-mkdir build && cd build
-cmake ..
-sudo make install
 
 source ~/.bashrc
 
@@ -89,8 +89,12 @@ make
 source ~/.bashrc
 
 # Make virtual environment
-cd $WORKSPACE/Mapping && mkdir -p tmp
-python3 -m venv tmp/venv
-tmp/venv/bin/pip install --upgrade pip
-tmp/venv/bin/pip3 install -r Video/requirements.txt
+cd $WORKSPACE/Mapping/DenseDepth
+python3 -m venv venv
+venv/bin/pip install --upgrade pip
+venv/bin/pip3 install -r requirements.txt
+
+cd $WORKSPACE/Mapping
+
+echo "Done"
 
