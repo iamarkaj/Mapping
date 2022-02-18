@@ -38,6 +38,20 @@ class PredictDepth:
         
         return ret
 
+    def __edges(self, img):
+        img = cv2.GaussianBlur(img, (3,3), 0) 
+        img = cv2.bilateralFilter(img, 3, 10, 10)
+        img = np.uint8(img)
+        img = cv2.Canny(img, 100, 200)
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(10,10))
+        img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+        return img
+
+    def __uniform(self, img):
+        img = img - 25
+        img[(img>200)|(img<0)] = 0
+        return img
+
     def predict(self, rgb_img):
         rgb_img = cv2.cvtColor(rgb_img, cv2.COLOR_BGR2RGB)
         rgb_img = cv2.resize(rgb_img, (640, 480))
@@ -51,5 +65,11 @@ class PredictDepth:
 
         rgb_img = rgb_img[0] * 255
         d_img = d_img * 255
+        
+        # Some filtering
+        # rgb_img_gray = cv2.cvtColor(rgb_img, cv2.COLOR_RGB2GRAY)
+        # rgb_img_edge = self.__edges(rgb_img_gray)
+        # d_img = self.__uniform(d_img)
+        # d_img[rgb_img_edge==255] = 0
         
         return d_img, rgb_img

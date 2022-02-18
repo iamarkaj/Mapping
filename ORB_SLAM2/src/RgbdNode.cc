@@ -24,8 +24,6 @@
 #include<fstream>
 #include<chrono>
 
-#include<opencv2/core/core.hpp>
-
 #include<System.h>
 
 using namespace std;
@@ -71,7 +69,7 @@ int main(int argc, char **argv)
     // Main loop
     cv::Mat imRGB, imD;
     for(int ni=0; ni<nImages; ni++)
-    {
+    {        
         // Read image and depthmap from file
         imRGB = cv::imread(string(argv[3])+"/"+vstrImageFilenamesRGB[ni],CV_LOAD_IMAGE_UNCHANGED);
         imD = cv::imread(string(argv[3])+"/"+vstrImageFilenamesD[ni],CV_LOAD_IMAGE_UNCHANGED);
@@ -114,6 +112,10 @@ int main(int argc, char **argv)
             usleep((T-ttrack)*1e6);
     }
 
+    do {
+        std::cout << '\n' << "Press any key to continue ...";
+    } while (std::cin.get() != '\n');
+
     // Stop all threads
     SLAM.Shutdown();
 
@@ -127,10 +129,6 @@ int main(int argc, char **argv)
     cout << "-------" << endl << endl;
     cout << "median tracking time: " << vTimesTrack[nImages/2] << endl;
     cout << "mean tracking time: " << totaltime/nImages << endl;
-
-    // Save camera trajectory
-    SLAM.SaveTrajectoryTUM("CameraTrajectory.txt");
-    SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
 
     return 0;
 }
